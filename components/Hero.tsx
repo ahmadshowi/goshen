@@ -16,8 +16,8 @@ const wordVariants = {
   }),
 };
 
-const MASK_IMAGE = "/images/hero.png";
-const FARM_IMAGE = "/images/masked.png";
+const MASK_IMAGE = "/images/masked.png";
+const FARM_IMAGE = "/images/hero.png";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -184,17 +184,7 @@ export default function Hero() {
       {/* =========================
           BOTTOM STAT BAR
       ========================== */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.1 }}
-        className="relative z-20 mx-4 -mt-10 grid grid-cols-2 border border-[#23361F]/10 bg-white/95 backdrop-blur-sm md:mx-8 md:grid-cols-4 lg:mx-14 xl:mx-20"
-      >
-        <Stat value="24" label="Total Peternakan" />
-        <Stat value="500K+" label="Populasi Ayam" />
-        <Stat value="23 TON" label="Produksi / Hari" />
-        <Stat value="20 HA" label="Luas Lahan" />
-      </motion.div>
+      
     </section>
   );
 }
