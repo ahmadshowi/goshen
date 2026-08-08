@@ -270,7 +270,7 @@ export default function NaturalFarming() {
                     y: rightImageY,
                     scale: rightImageScale,
                   }}
-                  src="/images/hero.jpg"
+                  src="/images/hero.png"
                   alt="Lingkungan peternakan Goshen"
                   className="h-[125%] w-full object-cover"
                 />
