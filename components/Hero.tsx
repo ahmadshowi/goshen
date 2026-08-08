@@ -169,15 +169,7 @@ export default function Hero() {
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#23361F]/35 to-transparent" />
 
           {/* Small label */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1 }}
-            className="absolute bottom-8 left-8 bg-[#FBF8EE] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.15em] text-[#23361F] md:left-10"
-          >
-            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#C8753D]" />
-            Modern Poultry Farming
-          </motion.div>
+
         </div>
       </div>
 

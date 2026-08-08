@@ -204,9 +204,7 @@ export default function CompanyIntro() {
           }}
           className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-center"
         >
-          <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#4B5A44]">
-            Scroll to discover
-          </div>
+
 
           <motion.div
             animate={{

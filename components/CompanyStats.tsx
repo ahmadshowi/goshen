@@ -5,7 +5,7 @@ import { useLanguage } from "@/lib/LanguageContext";
 
 const statImages = [
   {
-    src: "/images/masked.jpg",
+    src: "/images/masked.png",
     position: "center",
   },
   {
