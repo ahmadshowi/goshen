@@ -16,93 +16,87 @@ export default function CompanyIntro() {
   });
 
   // =========================================
-  // LOGO ANIMATION
-  // =========================================
-
-  const logoScale = useTransform(
-    scrollYProgress,
-    [0, 0.28],
-    [1, 0.32]
-  );
-
-  const logoY = useTransform(
-    scrollYProgress,
-    [0, 0.32],
-    [0, -110]
-  );
-
-  const logoOpacity = useTransform(
-    scrollYProgress,
-    [0.22, 0.42],
-    [1, 0]
-  );
-
-  // =========================================
-  // COMPANY IMAGE ANIMATION
+  // IMAGE EXPANSION
   // =========================================
 
   const imageScale = useTransform(
     scrollYProgress,
-    [0, 0.58],
-    [0.72, 1]
+    [0, 0.6],
+    [0.82, 1]
   );
 
   const imageWidth = useTransform(
     scrollYProgress,
-    [0, 0.58],
-    ["62%", "100%"]
+    [0, 0.6],
+    ["42%", "100%"]
   );
 
   const imageHeight = useTransform(
     scrollYProgress,
-    [0, 0.58],
-    ["62%", "100%"]
+    [0, 0.6],
+    ["48%", "100%"]
   );
 
   const imageRadius = useTransform(
     scrollYProgress,
-    [0, 0.58],
-    [32, 0]
+    [0, 0.6],
+    [28, 0]
   );
 
   // =========================================
-  // IMAGE OVERLAY
+  // IMAGE POSITION
+  // =========================================
+
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 0.6],
+    ["0%", "0%"]
+  );
+
+  // =========================================
+  // OVERLAY
   // =========================================
 
   const overlayOpacity = useTransform(
     scrollYProgress,
     [0.4, 0.7],
-    [0.05, 0.62]
+    [0, 0.62]
   );
 
   // =========================================
-  // ABOUT CONTENT ANIMATION
+  // ABOUT CONTENT
   // =========================================
 
   const contentOpacity = useTransform(
     scrollYProgress,
-    [0.58, 0.73],
+    [0.58, 0.76],
     [0, 1]
   );
 
   const contentY = useTransform(
     scrollYProgress,
-    [0.58, 0.73],
-    [60, 0]
+    [0.58, 0.76],
+    [70, 0]
   );
 
   // =========================================
-  // RETURN
+  // SMALL LABEL
   // =========================================
+
+  const labelOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.35],
+    [1, 0]
+  );
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="relative h-[280vh] bg-[#FBF8EE]"
+      className="relative h-[240vh] bg-[#FBF8EE]"
     >
       {/* =========================================
-          STICKY EXPERIENCE
+          STICKY VIEWPORT
       ========================================== */}
 
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
@@ -114,6 +108,21 @@ export default function CompanyIntro() {
         <div className="absolute inset-0 bg-[#FBF8EE]" />
 
         {/* =========================================
+            SMALL INTRO LABEL
+        ========================================== */}
+
+        <motion.div
+          style={{
+            opacity: labelOpacity,
+          }}
+          className="absolute top-16 left-1/2 z-30 -translate-x-1/2 text-center md:top-20"
+        >
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#4B5A44]">
+            {t.intro.eyebrow}
+          </p>
+        </motion.div>
+
+        {/* =========================================
             COMPANY IMAGE
         ========================================== */}
 
@@ -122,6 +131,7 @@ export default function CompanyIntro() {
             width: imageWidth,
             height: imageHeight,
             scale: imageScale,
+            y: imageY,
             borderRadius: imageRadius,
           }}
           className="absolute overflow-hidden"
@@ -142,25 +152,6 @@ export default function CompanyIntro() {
         </motion.div>
 
         {/* =========================================
-            LOGO
-        ========================================== */}
-
-        <motion.div
-          style={{
-            scale: logoScale,
-            y: logoY,
-            opacity: logoOpacity,
-          }}
-          className="relative z-20 flex items-center justify-center"
-        >
-          <img
-            src="/images/logo.png"
-            alt="PT Goshen Anugerah Sejahtera"
-            className="w-52 md:w-72 lg:w-80"
-          />
-        </motion.div>
-
-        {/* =========================================
             ABOUT CONTENT
         ========================================== */}
 
@@ -169,9 +160,9 @@ export default function CompanyIntro() {
             opacity: contentOpacity,
             y: contentY,
           }}
-          className="relative z-30 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16"
+          className="relative z-20 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16"
         >
-          <div className="max-w-3xl text-[#FBF8EE]">
+          <div className="max-w-4xl text-[#FBF8EE]">
 
             {/* Eyebrow */}
             <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#E8B06C] md:text-[11px]">
@@ -179,7 +170,7 @@ export default function CompanyIntro() {
             </p>
 
             {/* Heading */}
-            <h2 className="font-display text-5xl font-medium leading-[0.95] tracking-[-0.04em] md:text-7xl lg:text-8xl">
+            <h2 className="max-w-4xl font-display text-5xl font-medium leading-[0.92] tracking-[-0.045em] md:text-7xl lg:text-8xl">
               {t.intro.heading}
             </h2>
 
@@ -191,7 +182,7 @@ export default function CompanyIntro() {
             {/* CTA */}
             <a
               href="#business"
-              className="group mt-8 inline-flex items-center gap-3 border-b border-[#FBF8EE]/60 pb-2 text-sm font-medium text-[#FBF8EE] transition-colors hover:border-[#E8B06C] hover:text-[#E8B06C]"
+              className="group mt-9 inline-flex items-center gap-3 border-b border-[#FBF8EE]/60 pb-2 text-sm font-medium text-[#FBF8EE] transition-colors duration-300 hover:border-[#E8B06C] hover:text-[#E8B06C]"
             >
               {t.intro.cta}
 
@@ -209,9 +200,9 @@ export default function CompanyIntro() {
 
         <motion.div
           style={{
-            opacity: logoOpacity,
+            opacity: labelOpacity,
           }}
-          className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-center md:bottom-10"
+          className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-center"
         >
           <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#4B5A44]">
             Scroll to discover
