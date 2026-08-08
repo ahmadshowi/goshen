@@ -13,6 +13,10 @@ const wordVariants = {
   }),
 };
 
+// Ganti path ini ke foto asli client (disarankan foto dengan kontras tinggi
+// & area gelap/terang yang jelas biar teksnya tetap kebaca meski "transparan").
+const MASK_IMAGE_URL = "/images/hero.png";
+
 export default function Hero() {
   const { t } = useLanguage();
 
@@ -39,13 +43,23 @@ export default function Hero() {
           </motion.p>
 
           <h1 className="font-display text-display-1 font-medium text-cream max-w-5xl">
+            {/* Baris 1 — solid, jadi anchor keterbacaan */}
             <span className="block overflow-hidden">
               <motion.span custom={0} variants={wordVariants} initial="hidden" animate="visible" className="block">
                 {line1Words.join(" ")}
               </motion.span>
             </span>
+
+            {/* Baris 2 — masked heading: foto "bocor" lewat huruf */}
             <span className="block overflow-hidden">
-              <motion.span custom={1} variants={wordVariants} initial="hidden" animate="visible" className="block text-cream/90">
+              <motion.span
+                custom={1}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                className="block bg-cover bg-center bg-clip-text text-transparent"
+                style={{ backgroundImage: `url(${MASK_IMAGE_URL})` }}
+              >
                 {line2Words.join(" ")}
               </motion.span>
             </span>
