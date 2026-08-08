@@ -20,15 +20,16 @@ export default function NaturalFarming() {
       <div className="container-editorial">
 
         {/* =========================================
-            HEADER
+            SECTION INTRO
         ========================================== */}
 
-        <div className="mb-12 grid gap-8 md:mb-16 md:grid-cols-12 md:items-end">
+        <div className="mb-16 md:mb-20">
 
-          <motion.div
+          {/* Eyebrow */}
+          <motion.p
             initial={{
               opacity: 0,
-              y: 25,
+              y: 20,
             }}
             whileInView={{
               opacity: 1,
@@ -42,17 +43,16 @@ export default function NaturalFarming() {
               duration: 0.7,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="md:col-span-4"
+            className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#B9791F] md:text-[11px]"
           >
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#B9791F] md:text-[11px]">
-              {t.natural.eyebrow}
-            </p>
-          </motion.div>
+            {t.natural.eyebrow}
+          </motion.p>
 
-          <motion.div
+          {/* Heading */}
+          <motion.h2
             initial={{
               opacity: 0,
-              y: 25,
+              y: 35,
             }}
             whileInView={{
               opacity: 1,
@@ -63,44 +63,40 @@ export default function NaturalFarming() {
               margin: "-100px",
             }}
             transition={{
-              duration: 0.8,
+              duration: 0.85,
               delay: 0.08,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="md:col-span-8"
+            className="mt-5 max-w-5xl font-display text-5xl font-medium leading-[0.9] tracking-[-0.045em] text-[#23361F] md:text-7xl lg:text-[6.5rem]"
           >
-            <h2 className="max-w-4xl font-display text-5xl font-medium leading-[0.92] tracking-[-0.045em] text-[#23361F] md:text-7xl lg:text-8xl">
-              {t.natural.heading}
-            </h2>
-          </motion.div>
+            {t.natural.heading}
+          </motion.h2>
+
+          {/* Description */}
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              margin: "-80px",
+            }}
+            transition={{
+              duration: 0.7,
+              delay: 0.18,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mt-8 max-w-xl text-base leading-relaxed text-[#4B5A44] md:ml-[16%] md:text-lg"
+          >
+            {t.natural.body}
+          </motion.p>
 
         </div>
-
-        {/* =========================================
-            INTRO
-        ========================================== */}
-
-        <motion.p
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            margin: "-80px",
-          }}
-          transition={{
-            duration: 0.7,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mb-14 max-w-2xl text-base leading-relaxed text-[#4B5A44] md:mb-16 md:text-lg"
-        >
-          {t.natural.body}
-        </motion.p>
 
         {/* =========================================
             MAGIC BENTO
@@ -120,17 +116,18 @@ export default function NaturalFarming() {
               FEATURE IMAGE
           ======================================== */}
 
-          <div
-            className="relative h-full w-full overflow-hidden"
-          >
+          <div className="relative h-full w-full overflow-hidden">
+
             <img
               src="/images/company.jpg"
               alt="Peternakan PT Goshen Anugerah Sejahtera"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />
 
+            {/* Image Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#172015] via-[#172015]/20 to-transparent" />
 
+            {/* Image Content */}
             <div className="absolute inset-x-0 bottom-0 p-7 md:p-9">
 
               <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E8B06C]">
@@ -159,6 +156,7 @@ export default function NaturalFarming() {
                 className="flex h-full flex-col justify-between p-7 md:p-8"
               >
 
+                {/* Icon + Number */}
                 <div className="flex items-center justify-between">
 
                   <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#23361F]/15 bg-[#FBF8EE]">
@@ -175,6 +173,7 @@ export default function NaturalFarming() {
 
                 </div>
 
+                {/* Content */}
                 <div>
 
                   <h3 className="font-display text-2xl font-medium leading-tight tracking-[-0.02em] text-[#23361F] md:text-3xl">
@@ -185,48 +184,13 @@ export default function NaturalFarming() {
                     {point.desc}
                   </p>
 
-                  <div className="mt-6 h-px w-8 bg-[#B9791F] transition-all duration-500 group-hover:w-16" />
+                  <div className="mt-6 h-px w-8 bg-[#B9791F] transition-all duration-500" />
 
                 </div>
 
               </div>
             );
           })}
-
-          {/* =======================================
-              CLOSING CARD
-          ======================================== */}
-
-          <div className="flex h-full flex-col justify-between bg-[#35502C] p-7 md:p-9">
-
-            <div className="flex items-center justify-between">
-
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#E8B06C]">
-                OUR PRINCIPLE
-              </span>
-
-              <span className="text-xl text-[#FBF8EE]/30">
-                ✦
-              </span>
-
-            </div>
-
-            <div>
-
-              <h3 className="font-display text-3xl font-medium leading-[0.95] tracking-[-0.035em] text-[#FBF8EE] md:text-5xl">
-                Growing
-                <br />
-                with nature.
-              </h3>
-
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#FBF8EE]/65">
-                Mengutamakan lokasi strategis, sumber daya alam yang baik,
-                dan praktik peternakan yang berkelanjutan.
-              </p>
-
-            </div>
-
-          </div>
 
         </MagicBento>
 
