@@ -1,76 +1,190 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 
-function Counter({ target, locale }: { target: number; locale: "id" | "en" }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [display, setDisplay] = useState("0");
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, target, {
-      duration: 1.8,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => {
-        setDisplay(Math.round(v).toLocaleString(locale === "id" ? "id-ID" : "en-US"));
-      },
-    });
-    return () => controls.stop();
-  }, [inView, target, locale]);
-
-  return <span ref={ref}>{display}</span>;
-}
+const statImages = [
+  {
+    src: "/images/masked.jpg",
+    position: "center",
+  },
+  {
+    src: "/images/ayam.jpg",
+    position: "center",
+  },
+  {
+    src: "/images/telor.jpg",
+    position: "center",
+  },
+  {
+    src: "/images/company.jpg",
+    position: "center",
+  },
+];
 
 export default function CompanyStats() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const items = t.stats.items;
 
   return (
-    <section className="relative bg-charcoal py-24 md:py-32 overflow-hidden">
-      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-rust-500/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-moss-500/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#23361F] py-28 text-[#FBF8EE] md:py-36">
+      <div className="container-editorial">
 
-      <div className="container-editorial relative">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-6">
-          <p className="eyebrow text-rust-300">{t.stats.eyebrow}</p>
-          <h2 className="font-display text-display-3 text-cream max-w-md">{t.stats.heading}</h2>
+        {/* =========================================
+            HEADER
+        ========================================== */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-16 grid gap-8 md:mb-20 md:grid-cols-12 md:items-end"
+        >
+          <div className="md:col-span-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#E8B06C] md:text-[11px]">
+              {t.stats.eyebrow}
+            </p>
+          </div>
+
+          <div className="md:col-span-7">
+            <h2 className="max-w-3xl font-display text-4xl font-medium leading-[0.95] tracking-[-0.04em] md:text-6xl lg:text-7xl">
+              {t.stats.heading}
+            </h2>
+          </div>
+        </motion.div>
+
+        {/* =========================================
+            STAT GRID
+        ========================================== */}
+
+        <div className="grid gap-px overflow-hidden border border-[#FBF8EE]/10 bg-[#FBF8EE]/10 md:grid-cols-2">
+          {items.map((item, i) => {
+            const image = statImages[i % statImages.length];
+
+            return (
+              <motion.article
+                key={item.label}
+                initial={{
+                  opacity: 0,
+                  y: 50,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  margin: "-100px",
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: i * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group relative min-h-[430px] overflow-hidden bg-[#23361F] md:min-h-[500px]"
+              >
+
+                {/* =========================================
+                    IMAGE
+                ========================================== */}
+
+                <motion.div
+                  initial={{
+                    scale: 1.12,
+                  }}
+                  whileInView={{
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                    margin: "-100px",
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    delay: i * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="absolute inset-0"
+                >
+                  <img
+                    src={image.src}
+                    alt=""
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+                    style={{
+                      objectPosition: image.position,
+                    }}
+                  />
+                </motion.div>
+
+                {/* =========================================
+                    IMAGE OVERLAY
+                ========================================== */}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#172015] via-[#172015]/35 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
+
+                {/* =========================================
+                    CONTENT
+                ========================================== */}
+
+                <div className="relative z-10 flex h-full min-h-[430px] flex-col justify-between p-7 md:min-h-[500px] md:p-10">
+
+                  {/* Number */}
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: 25,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                      margin: "-80px",
+                    }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.25 + i * 0.12,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="flex items-start"
+                  >
+                    {item.suffix && (
+                      <span className="mr-2 mt-2 font-display text-2xl text-[#E8B06C] md:text-3xl">
+                        {item.suffix}
+                      </span>
+                    )}
+
+                    <span className="font-display text-6xl font-medium leading-none tracking-[-0.05em] md:text-8xl">
+                      {item.value}
+                    </span>
+
+                    {"unit" in item && item.unit && (
+                      <span className="ml-2 mt-2 font-display text-xl text-[#FBF8EE]/70 md:text-2xl">
+                        {item.unit}
+                      </span>
+                    )}
+                  </motion.div>
+
+                  {/* Bottom */}
+                  <div>
+                    <div className="mb-5 h-px w-10 bg-[#E8B06C] transition-all duration-500 group-hover:w-20" />
+
+                    <p className="max-w-xs font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-[#FBF8EE]/75 md:text-[11px]">
+                      {item.label}
+                    </p>
+                  </div>
+
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative px-0 sm:px-8 lg:px-10 py-10 sm:py-0 first:pl-0 ${
-                i !== 0 ? "sm:border-l border-cream/10" : ""
-              }`}
-            >
-              <div className="flex items-baseline gap-1 font-display text-cream">
-                {item.suffix && <span className="text-2xl md:text-3xl text-rust-300 self-start mt-2">{item.suffix}</span>}
-                <span className="text-[clamp(2.75rem,6vw,4.75rem)] leading-none font-medium tracking-tight">
-                  <Counter target={Number(item.value.replace(/[.,]/g, ""))} locale={locale} />
-                </span>
-                {"unit" in item && item.unit && (
-                  <span className="text-xl md:text-2xl text-cream/60 ml-1">{item.unit}</span>
-                )}
-              </div>
-              <p className="eyebrow text-cream/50 mt-4">{item.label}</p>
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.9, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="block h-px bg-rust-400 mt-6 origin-left"
-              />
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
