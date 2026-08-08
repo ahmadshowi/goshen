@@ -1,25 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import ImagePlaceholder from "./ImagePlaceholder";
 
 const wordVariants = {
   hidden: { y: "110%" },
   visible: (i: number) => ({
     y: "0%",
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.08 },
+    transition: {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+      delay: 0.15 + i * 0.08,
+    },
   }),
 };
 
-// Gradasi "matahari terbit di atas ladang" — dipakai sebagai isi huruf pada
-// baris kedua heading. Tidak bergantung pada foto, jadi selalu tajam di
-// ukuran besar. Ganti stop warnanya kalau mau nuansa lain.
-const MASK_GRADIENT = [
-  "radial-gradient(circle at 28% 22%, #F7D488 0%, #F7D488 8%, transparent 42%)",
-  "linear-gradient(180deg, #EAD9A0 0%, #C9B36B 22%, #7C9B5C 55%, #35502C 100%)",
-].join(", ");
+const MASK_IMAGE = "/images/hero.png";
+const FARM_IMAGE = "/images/masked.png";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -28,103 +26,195 @@ export default function Hero() {
   const line2Words = t.hero.headline2.split(" ");
 
   return (
-    <section
-      id="home"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#F3EEDD] grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr]"
-    >
-      {/* KIRI — konten */}
-      <div className="relative z-10 flex flex-col justify-center gap-7 px-6 py-16 lg:px-[4vw] lg:py-0">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex w-fit -rotate-2 items-center gap-2 rounded-full border border-[#23361F] px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-[#23361F]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#B9791F]" />
-          {t.hero.eyebrow}
-        </motion.span>
+    <section className="relative min-h-screen overflow-hidden bg-[#FBF8EE]">
+      <div className="grid min-h-screen lg:grid-cols-[54%_46%]">
 
-        <h1 className="font-display text-display-1 font-semibold leading-[0.92] tracking-tight text-[#23361F] max-w-xl">
-          {/* Baris 1 — solid, jadi anchor keterbacaan */}
-          <span className="block overflow-hidden">
-            <motion.span custom={0} variants={wordVariants} initial="hidden" animate="visible" className="block">
-              {line1Words.join(" ")}
-            </motion.span>
-          </span>
+        {/* =========================
+            LEFT — TYPOGRAPHY
+        ========================== */}
+        <div className="relative z-10 flex items-center">
+          <div className="w-full px-6 py-24 sm:px-10 md:px-14 lg:px-16 xl:px-20">
 
-          {/* Baris 2 — masked heading, isinya gradasi "dawn over field" */}
-          <span className="block overflow-hidden">
-            <motion.span
-              custom={1}
-              variants={wordVariants}
-              initial="hidden"
-              animate="visible"
-              className="block bg-clip-text text-transparent"
-              style={{ backgroundImage: MASK_GRADIENT }}
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-7 inline-flex -rotate-1 items-center rounded-full border border-[#23361F]/30 bg-[#FBF8EE]/80 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#23361F]"
             >
-              {line2Words.join(" ")}
-            </motion.span>
-          </span>
-        </h1>
+              {t.hero.eyebrow}
+            </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="font-display flex items-center gap-2.5 text-xl font-medium text-[#35502C] before:h-0.5 before:w-7 before:bg-[#B9791F]"
-        >
-          Kualitas untuk Indonesia
-        </motion.p>
+            {/* Main heading */}
+            <h1 className="max-w-[850px] font-display text-[clamp(4rem,7.5vw,8.5rem)] font-semibold leading-[0.82] tracking-[-0.055em] text-[#23361F]">
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="max-w-[32ch] text-base leading-relaxed text-[#4B5A44]"
-        >
-          {t.hero.subheadline}
-        </motion.p>
+              {/* BARIS 1 — IMAGE MASK */}
+              <span className="block overflow-hidden">
+                <motion.span
+                  custom={0}
+                  variants={wordVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="block bg-cover bg-center bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: `url(${MASK_IMAGE})`,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {line1Words.join(" ")}
+                </motion.span>
+              </span>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.85 }}
-          className="mt-1 flex flex-wrap items-center gap-3.5"
-        >
-          <a
-            href="#about"
-            className="group inline-flex items-center gap-2 border border-[#23361F] bg-[#35502C] px-6 py-3.5 text-sm font-medium text-[#FBF8EE] transition-colors duration-300 hover:bg-[#23361F]"
+              {/* BARIS 2 — IMAGE MASK */}
+              <span className="block overflow-hidden">
+                <motion.span
+                  custom={1}
+                  variants={wordVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="block bg-cover bg-center bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: `url(${MASK_IMAGE})`,
+                    backgroundPosition: "center 65%",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {line2Words.join(" ")}
+                </motion.span>
+              </span>
+            </h1>
+
+            {/* Tagline */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-7 flex items-center gap-3 font-display text-xl font-medium text-[#35502C] md:text-2xl"
+            >
+              <span className="h-[2px] w-8 bg-[#C8753D]" />
+              Kualitas untuk Indonesia.
+            </motion.p>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="mt-4 max-w-[34ch] text-sm leading-[1.7] text-[#4B5A44] md:text-base"
+            >
+              {t.hero.subheadline}
+            </motion.p>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.85 }}
+              className="mt-8 flex flex-wrap gap-3"
+            >
+              <a
+                href="#about"
+                className="group inline-flex items-center gap-3 bg-[#35502C] px-6 py-3.5 text-sm font-medium text-[#FBF8EE] transition-all duration-300 hover:bg-[#23361F]"
+              >
+                {t.hero.ctaPrimary}
+
+                <ArrowRight
+                  size={16}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </a>
+
+              <a
+                href="#business"
+                className="group inline-flex items-center gap-3 border border-[#35502C]/30 px-6 py-3.5 text-sm font-medium text-[#35502C] transition-all duration-300 hover:border-[#35502C] hover:bg-[#35502C]/5"
+              >
+                {t.hero.ctaSecondary}
+
+                <ArrowRight
+                  size={16}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </a>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* =========================
+            RIGHT — FARM IMAGE
+        ========================== */}
+        <div className="relative min-h-[55vh] overflow-hidden lg:min-h-screen">
+
+          <motion.div
+            initial={{ scale: 1.08, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              duration: 1.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="absolute inset-0"
           >
-            {t.hero.ctaPrimary}
-            <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
-          <a
-            href="#business"
-            className="group inline-flex items-center gap-2 border border-[#23361F] px-6 py-3.5 text-sm font-medium text-[#23361F] transition-colors duration-300 hover:bg-[#23361F]/[0.08]"
+            <img
+              src={FARM_IMAGE}
+              alt="Peternakan ayam petelur modern"
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
+
+          {/* Soft left fade */}
+          <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#FBF8EE]/35 to-transparent" />
+
+          {/* Bottom fade */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#23361F]/35 to-transparent" />
+
+          {/* Small label */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1 }}
+            className="absolute bottom-8 left-8 bg-[#FBF8EE] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.15em] text-[#23361F] md:left-10"
           >
-            {t.hero.ctaSecondary}
-          </a>
-        </motion.div>
+            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#C8753D]" />
+            Modern Poultry Farming
+          </motion.div>
+        </div>
       </div>
 
-      {/* KANAN — foto, dipotong diagonal biar nggak jadi kotak lurus generik */}
-      <div
-        className="relative min-h-[320px] bg-[#35502C]"
-        style={{ clipPath: "polygon(9% 0, 100% 0, 100% 100%, 0% 100%)" }}
+      {/* =========================
+          BOTTOM STAT BAR
+      ========================== */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.1 }}
+        className="relative z-20 mx-4 -mt-10 grid grid-cols-2 border border-[#23361F]/10 bg-white/95 backdrop-blur-sm md:mx-8 md:grid-cols-4 lg:mx-14 xl:mx-20"
       >
-        <ImagePlaceholder tone="forest" icon={Leaf} className="h-full w-full" label="Farm & fasilitas — foto asli" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#23361F]/60 via-transparent to-transparent" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="absolute bottom-7 left-8 md:left-11 -rotate-1 flex items-center gap-2 bg-[#FBF8EE] px-4 py-2.5 font-mono text-[11px] uppercase tracking-wider text-[#23361F]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#B24A34]" />
-          100% telur segar
-        </motion.div>
-      </div>
+        <Stat value="24" label="Total Peternakan" />
+        <Stat value="500K+" label="Populasi Ayam" />
+        <Stat value="23 TON" label="Produksi / Hari" />
+        <Stat value="20 HA" label="Luas Lahan" />
+      </motion.div>
     </section>
+  );
+}
+
+function Stat({
+  value,
+  label,
+}: {
+  value: string;
+  label: string;
+}) {
+  return (
+    <div className="border-[#23361F]/10 px-5 py-6 md:border-r last:border-r-0 md:px-8 md:py-7">
+      <div className="font-display text-2xl font-semibold tracking-tight text-[#23361F] md:text-3xl">
+        {value}
+      </div>
+
+      <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#6B7664] md:text-[10px]">
+        {label}
+      </div>
+    </div>
   );
 }
