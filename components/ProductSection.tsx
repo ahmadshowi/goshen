@@ -147,7 +147,7 @@ export default function ProductSection() {
           >
 
             <img
-              src="/images/eggs.jpg"
+              src="/images/telor.jpg"
               alt="Telur ayam berkualitas PT Goshen Anugerah Sejahtera"
               className="h-full w-full object-cover"
             />
