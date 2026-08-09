@@ -22,7 +22,6 @@ export default function Home() {
       <NaturalFarming />
       <ModernFarming />
       <ProductSection />
-      <Sustainability />
       <VisionSection />
       <InvestorSection />
       <NewsSection />
