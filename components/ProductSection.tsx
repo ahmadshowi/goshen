@@ -1,7 +1,12 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ShieldCheck, Sparkles, Leaf, ArrowUpRight } from "lucide-react";
+import {
+  ShieldCheck,
+  Sparkles,
+  Leaf,
+  ArrowUpRight,
+} from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useRef } from "react";
 
@@ -17,22 +22,25 @@ export default function ProductSection() {
     offset: ["start end", "end start"],
   });
 
-  // Foto mulai sedikit kecil lalu membesar ketika section masuk viewport
+  // =========================================
+  // IMAGE SCROLL ANIMATION
+  // =========================================
+
   const imageScale = useTransform(
     scrollYProgress,
-    [0.15, 0.48],
-    [0.82, 1]
+    [0.12, 0.45],
+    [0.84, 1]
   );
 
   const imageY = useTransform(
     scrollYProgress,
-    [0.15, 0.48],
-    [50, 0]
+    [0.12, 0.45],
+    [45, 0]
   );
 
   const imageRadius = useTransform(
     scrollYProgress,
-    [0.15, 0.48],
+    [0.12, 0.45],
     [28, 0]
   );
 
@@ -45,17 +53,19 @@ export default function ProductSection() {
       <div className="container-editorial">
 
         {/* =====================================================
-            HEADER
+            PRODUCT INTRO
         ====================================================== */}
 
-        <div className="grid gap-8 md:grid-cols-12 md:items-end">
+        <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
 
-          {/* Eyebrow */}
+          {/* =========================================
+              LEFT — SECTION LABEL
+          ========================================= */}
 
           <motion.div
             initial={{
               opacity: 0,
-              x: -20,
+              x: -15,
             }}
             whileInView={{
               opacity: 1,
@@ -66,26 +76,31 @@ export default function ProductSection() {
               margin: "-100px",
             }}
             transition={{
-              duration: 0.7,
+              duration: 0.6,
               ease: [0.22, 1, 0.36, 1] as const,
             }}
-            className="md:col-span-4"
+            className="shrink-0"
           >
             <div className="flex items-center gap-3">
+
               <span className="h-px w-8 bg-[#B9791F]" />
 
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#B9791F] md:text-[11px]">
                 {t.product.eyebrow}
               </p>
+
             </div>
           </motion.div>
 
-          {/* Heading */}
+
+          {/* =========================================
+              RIGHT — STATEMENT
+          ========================================= */}
 
           <motion.div
             initial={{
               opacity: 0,
-              y: 25,
+              y: 20,
             }}
             whileInView={{
               opacity: 1,
@@ -93,55 +108,34 @@ export default function ProductSection() {
             }}
             viewport={{
               once: true,
-              margin: "-100px",
+              margin: "-80px",
             }}
             transition={{
-              duration: 0.8,
-              delay: 0.08,
+              duration: 0.7,
+              delay: 0.1,
               ease: [0.22, 1, 0.36, 1] as const,
             }}
-            className="md:col-span-8"
+            className="max-w-2xl md:text-right"
           >
-            <h2 className="max-w-4xl font-display text-5xl font-medium leading-[0.92] tracking-[-0.045em] text-[#23361F] md:text-7xl lg:text-[5.8rem]">
+
+            <h2 className="font-display text-3xl font-medium leading-[1] tracking-[-0.035em] text-[#23361F] sm:text-4xl md:text-5xl">
               {t.product.heading}
             </h2>
+
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#687260] md:ml-auto md:text-base">
+              {t.product.body}
+            </p>
+
           </motion.div>
 
         </div>
 
 
         {/* =====================================================
-            INTRO
+            PRODUCT IMAGE
         ====================================================== */}
 
-        <motion.p
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            margin: "-80px",
-          }}
-          transition={{
-            duration: 0.7,
-            delay: 0.15,
-          }}
-          className="mt-8 max-w-xl text-base leading-relaxed text-[#687260] md:ml-[33.333%] md:text-lg"
-        >
-          {t.product.body}
-        </motion.p>
-
-
-        {/* =====================================================
-            MAIN PRODUCT IMAGE
-        ====================================================== */}
-
-        <div className="relative mt-16 md:mt-20">
+        <div className="relative mt-12 md:mt-16">
 
           <motion.div
             style={{
@@ -149,25 +143,30 @@ export default function ProductSection() {
               y: imageY,
               borderRadius: imageRadius,
             }}
-            className="relative h-[55vh] min-h-[380px] w-full overflow-hidden md:h-[68vh]"
+            className="relative h-[58vh] min-h-[400px] w-full overflow-hidden md:h-[72vh]"
           >
 
             <img
-              src="/images/telor.jpg"
+              src="/images/eggs.jpg"
               alt="Telur ayam berkualitas PT Goshen Anugerah Sejahtera"
               className="h-full w-full object-cover"
             />
 
-            {/* Image overlay */}
+            {/* =========================================
+                IMAGE OVERLAY
+            ========================================= */}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#172015]/75 via-[#172015]/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#172015]/80 via-[#172015]/15 to-transparent" />
 
-            {/* Product label */}
+
+            {/* =========================================
+                PRODUCT LABEL
+            ========================================= */}
 
             <motion.div
               initial={{
                 opacity: 0,
-                y: 15,
+                y: 20,
               }}
               whileInView={{
                 opacity: 1,
@@ -179,10 +178,11 @@ export default function ProductSection() {
               }}
               transition={{
                 duration: 0.7,
-                delay: 0.4,
+                delay: 0.35,
               }}
               className="absolute bottom-7 left-7 md:bottom-10 md:left-10"
             >
+
               <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#E8B06C]">
                 PT GOSHEN ANUGERAH SEJAHTERA
               </p>
@@ -192,14 +192,20 @@ export default function ProductSection() {
                 <br />
                 untuk Indonesia.
               </h3>
+
             </motion.div>
 
-            {/* Number */}
+
+            {/* =========================================
+                IMAGE INDEX
+            ========================================= */}
 
             <div className="absolute right-7 top-7 md:right-10 md:top-10">
+
               <span className="font-mono text-[10px] tracking-[0.25em] text-[#FBF8EE]/70">
                 01 / PRODUCT
               </span>
+
             </div>
 
           </motion.div>
@@ -239,7 +245,9 @@ export default function ProductSection() {
                 className="group relative bg-white p-7 transition-colors duration-500 hover:bg-[#35502C] md:p-9"
               >
 
-                {/* Number */}
+                {/* =========================================
+                    NUMBER + ARROW
+                ========================================= */}
 
                 <div className="flex items-start justify-between">
 
@@ -250,35 +258,57 @@ export default function ProductSection() {
                   <ArrowUpRight
                     size={18}
                     strokeWidth={1.3}
-                    className="text-[#B9791F] transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#E8B06C]"
+                    className="
+                      text-[#B9791F]
+                      opacity-70
+                      transition-all
+                      duration-500
+                      group-hover:-translate-y-1
+                      group-hover:translate-x-1
+                      group-hover:text-[#E8B06C]
+                      group-hover:opacity-100
+                    "
                   />
 
                 </div>
 
 
-                {/* Icon */}
+                {/* =========================================
+                    ICON
+                ========================================= */}
 
                 <div className="mt-12 flex h-11 w-11 items-center justify-center rounded-full border border-[#23361F]/10 bg-[#FBF8EE] transition-all duration-500 group-hover:border-[#E8B06C] group-hover:bg-[#E8B06C]">
+
                   <Icon
                     size={19}
                     strokeWidth={1.4}
                     className="text-[#35502C]"
                   />
+
                 </div>
 
 
-                {/* Text */}
+                {/* =========================================
+                    TITLE
+                ========================================= */}
 
                 <h3 className="mt-7 font-display text-2xl font-medium tracking-[-0.025em] text-[#23361F] transition-colors duration-500 group-hover:text-[#FBF8EE] md:text-3xl">
                   {pillar.title}
                 </h3>
+
+
+                {/* =========================================
+                    DESCRIPTION
+                ========================================= */}
 
                 <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#687260] transition-colors duration-500 group-hover:text-[#FBF8EE]/70">
                   {pillar.desc}
                 </p>
 
 
-                {/* Accent line */}
+                {/* =========================================
+                    ACCENT LINE
+                ========================================= */}
 
                 <div className="mt-7 h-[2px] w-8 bg-[#B9791F] transition-all duration-500 group-hover:w-16 group-hover:bg-[#E8B06C]" />
 
