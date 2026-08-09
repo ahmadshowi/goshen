@@ -5,7 +5,6 @@ import CompanyStats from "@/components/CompanyStats";
 import NaturalFarming from "@/components/NaturalFarming";
 import ModernFarming from "@/components/ModernFarming";
 import ProductSection from "@/components/ProductSection";
-import Sustainability from "@/components/Sustainability";
 import VisionSection from "@/components/VisionSection";
 import InvestorSection from "@/components/InvestorSection";
 import NewsSection from "@/components/NewsSection";
